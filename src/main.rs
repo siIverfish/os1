@@ -34,11 +34,12 @@ pub extern "C" fn _start() -> ! {
 
 fn print_message() {
     let vga_buffer = 0xB8000 as *mut u8;
+    static DEFAULT_COLOR: u8 = 0x0F;
 
     for (i, &byte) in HELLO.iter().enumerate() {
         unsafe {
             *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0x0B;
+            *vga_buffer.offset(i as isize * 2 + 1) = DEFAULT_COLOR;
         }
     }
 }

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+for dep in "xorriso grub-pc-bin mtools"; do
+    if dpkg -l | grep -q "$dep"; then
+        echo "Needed package (apt) not installed: $dep"
+        exit 1
+    fi
+done
+
 release=false
 for arg in "$@"; do
     if [ "$arg" == "--release" ]; then
